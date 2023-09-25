@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Model;
 using PeopleManager.Services;
 
 namespace PeopleManager.Ui.Mvc.Controllers
 {
+    [Authorize]
     public class PeopleController : Controller
     {
         private readonly PersonService _personService;
@@ -13,7 +15,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
             _personService = personService;
         }
 
-
+        //[AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
@@ -27,8 +29,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(Person person)
         {
             if (!ModelState.IsValid)

@@ -13,11 +13,24 @@ builder.Services.AddDbContext<PeopleManagerDbContext>(options =>
     options.UseInMemoryDatabase(nameof(PeopleManagerDbContext));
 });
 
+//Login
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     {
-        options.SignIn.RequireConfirmedAccount = true;
+        options.SignIn.RequireConfirmedAccount = false;
     })
     .AddEntityFrameworkStores<PeopleManagerDbContext>();
+
+//Authorize
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	//Security
+	options.Cookie.HttpOnly = true;
+    //Path to go when not authorized
+    options.LoginPath = "/Auth/Login";
+	//Logout automaticly after 5 minutes of inactivity
+	options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+});
 
 builder.Services.AddScoped<PersonService>();
 builder.Services.AddScoped<VehicleService>();

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PeopleManager.Model;
+using System.Linq.Expressions;
 
 namespace PeopleManager.Core
 {
@@ -28,6 +30,8 @@ namespace PeopleManager.Core
 
         public void Seed()
         {
+            AddDefaultUser();
+
             var bavoPerson = new Person
             {
                 FirstName = "Bavo",
@@ -58,6 +62,26 @@ namespace PeopleManager.Core
                 new Vehicle{LicensePlate = "DESK_1", Brand= "Fiat", Type="Punto", ResponsiblePerson = bavoPerson}});
 
             SaveChanges();
+        }            
+        private void AddDefaultUser(){
+            string email = "jordy.vandemoortele@outlook.com";
+
+
+			IdentityUser defaultUser = new IdentityUser
+            {
+                AccessFailedCount = 0,
+                EmailConfirmed = false,
+                LockoutEnabled = false,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                UserName = email,
+                Email = email,
+                NormalizedEmail = email.ToUpper(),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                NormalizedUserName = email.ToUpper(),
+				PasswordHash = "AQAAAAIAAYagAAAAEHP2gmzTGx5N1QXzEsWy6MWuazVfSAjqP31a5gczgjHY27MzhGzGI5WLs9TclbBx3g=="
+			};
+            Users.Add(defaultUser);
         }
     }
 }

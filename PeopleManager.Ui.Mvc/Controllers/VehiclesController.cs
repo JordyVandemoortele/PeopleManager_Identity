@@ -1,10 +1,12 @@
 ﻿using JetBrains.Annotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Model;
 using PeopleManager.Services;
 
 namespace PeopleManager.Ui.Mvc.Controllers
 {
+    [Authorize]
     public class VehiclesController : Controller
     {
         private readonly VehicleService _vehicleService;
