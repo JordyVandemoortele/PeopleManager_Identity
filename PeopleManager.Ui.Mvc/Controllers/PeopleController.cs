@@ -6,6 +6,7 @@ using PeopleManager.Services;
 namespace PeopleManager.Ui.Mvc.Controllers
 {
     [Authorize]
+    
     public class PeopleController : Controller
     {
         private readonly PersonService _personService;

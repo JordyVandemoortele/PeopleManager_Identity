@@ -91,5 +91,11 @@ namespace PeopleManager.Ui.Mvc.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
+        public IActionResult AccesDenied(string? ReturnUrl = "/")
+        {
+            ViewData["ReturnUrl"] = ReturnUrl;
+            return View();
+        }
     }
 }

@@ -30,7 +30,8 @@ namespace PeopleManager.Core
 
         public void Seed()
         {
-            AddDefaultUser();
+			AddDefaultRoles();
+			AddDefaultUser();
 
             var bavoPerson = new Person
             {
@@ -65,7 +66,8 @@ namespace PeopleManager.Core
         }            
         private void AddDefaultUser(){
             string email = "jordy.vandemoortele@outlook.com";
-
+            string email2 = "jordy.normal@outlook.com";
+            var ManagerRole = Roles.SingleOrDefault(r => r.Name == "Manager");
 
 			IdentityUser defaultUser = new IdentityUser
             {
@@ -81,7 +83,35 @@ namespace PeopleManager.Core
                 NormalizedUserName = email.ToUpper(),
 				PasswordHash = "AQAAAAIAAYagAAAAEHP2gmzTGx5N1QXzEsWy6MWuazVfSAjqP31a5gczgjHY27MzhGzGI5WLs9TclbBx3g=="
 			};
+            IdentityUser normalUser = new IdentityUser
+            {
+                AccessFailedCount = 0,
+                EmailConfirmed = false,
+                LockoutEnabled = false,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                UserName = email2,
+                Email = email2,
+                NormalizedEmail = email2.ToUpper(),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                NormalizedUserName = email2.ToUpper(),
+                PasswordHash = "AQAAAAIAAYagAAAAEHP2gmzTGx5N1QXzEsWy6MWuazVfSAjqP31a5gczgjHY27MzhGzGI5WLs9TclbBx3g=="
+            };
+
             Users.Add(defaultUser);
+            Users.Add(normalUser);
+            SaveChanges();
+			UserRoles.Add(new IdentityUserRole<string>(){ 
+                RoleId = ManagerRole.Id, 
+                UserId = defaultUser.Id });
+            SaveChanges();
         }
+        private void AddDefaultRoles()
+        {
+            Roles.Add(new IdentityRole("Administrator"));
+			Roles.Add(new IdentityRole("Manager"));
+
+            SaveChanges();
+		}
     }
 }

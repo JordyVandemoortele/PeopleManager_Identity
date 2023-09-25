@@ -1,0 +1,16 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Acces Denied";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <p>You don't have acces to this page</p>
+            <p><a asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]">Log in</a> as different user or contact the manager!</p>
+            <p>You stupid asshole!</p>
+            <p>Go back to <a asp-action="Index" asp-controller="Home">Home</a></p>
+        </section>
+</div>
+</div>

@@ -18,6 +18,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
     })
+    //Roles are activated now
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<PeopleManagerDbContext>();
 
 //Authorize
@@ -27,6 +29,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.Cookie.HttpOnly = true;
     //Path to go when not authorized
     options.LoginPath = "/Auth/Login";
+    options.AccessDeniedPath = "/Auth/AccesDenied";
 	//Logout automaticly after 5 minutes of inactivity
 	options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);

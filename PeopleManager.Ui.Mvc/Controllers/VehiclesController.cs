@@ -6,7 +6,7 @@ using PeopleManager.Services;
 
 namespace PeopleManager.Ui.Mvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Manager")]
     public class VehiclesController : Controller
     {
         private readonly VehicleService _vehicleService;
