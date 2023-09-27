@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Model;
 using PeopleManager.Services;
 
-namespace PeopleManager.Ui.Mvc.Controllers
+namespace PeopleManager.Ui.Mvc.Areas.Admin.Controllers
 {
-    [Authorize]
-    
-    public class PeopleController : Controller
+    public class PeopleController : AdminController
     {
         private readonly PersonService _personService;
 
@@ -58,7 +56,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute]int id, [FromForm]Person person)
+        public IActionResult Edit([FromRoute] int id, [FromForm] Person person)
         {
             if (!ModelState.IsValid)
             {

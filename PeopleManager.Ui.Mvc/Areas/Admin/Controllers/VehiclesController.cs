@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Model;
 using PeopleManager.Services;
 
-namespace PeopleManager.Ui.Mvc.Controllers
+namespace PeopleManager.Ui.Mvc.Areas.Admin.Controllers
 {
-    [Authorize(Roles ="Manager")]
-    public class VehiclesController : Controller
+    public class VehiclesController : AdminController
     {
         private readonly VehicleService _vehicleService;
         private readonly PersonService _personService;
@@ -62,7 +61,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute]int id, [FromForm]Vehicle vehicle)
+        public IActionResult Edit([FromRoute] int id, [FromForm] Vehicle vehicle)
         {
             if (!ModelState.IsValid)
             {
@@ -73,8 +72,8 @@ namespace PeopleManager.Ui.Mvc.Controllers
 
             return RedirectToAction("Index");
         }
-        
-        private IActionResult CreateEditView([AspMvcView]string viewName, Vehicle? vehicle = null)
+
+        private IActionResult CreateEditView([AspMvcView] string viewName, Vehicle? vehicle = null)
         {
             var people = _personService.Find();
 

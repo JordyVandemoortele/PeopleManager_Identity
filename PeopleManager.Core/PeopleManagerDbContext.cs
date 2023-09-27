@@ -65,9 +65,9 @@ namespace PeopleManager.Core
             SaveChanges();
         }            
         private void AddDefaultUser(){
-            string email = "jordy.vandemoortele@outlook.com";
+            string email = "jordy.admin@outlook.com";
             string email2 = "jordy.normal@outlook.com";
-            var ManagerRole = Roles.SingleOrDefault(r => r.Name == "Manager");
+            var AdminRole = Roles.SingleOrDefault(r => r.Name == "Administrator");
 
 			IdentityUser defaultUser = new IdentityUser
             {
@@ -102,7 +102,7 @@ namespace PeopleManager.Core
             Users.Add(normalUser);
             SaveChanges();
 			UserRoles.Add(new IdentityUserRole<string>(){ 
-                RoleId = ManagerRole.Id, 
+                RoleId = AdminRole.Id, 
                 UserId = defaultUser.Id });
             SaveChanges();
         }
